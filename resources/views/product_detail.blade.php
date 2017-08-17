@@ -15,18 +15,18 @@
         <p>
             <strong>Description: </strong>{{ $product->description }}
         </p>
-        <button class="btn-danger" id="remove-cart_{{ $product->id }}" @if(!$in_cart)style="display: none"@endif onclick="removeFromCart(this)" data-product_id="{{ $product->id }}">
+        <button class="btn-danger btn-lg" id="remove-cart_{{ $product->id }}" @if(!$in_cart)style="display: none"@endif onclick="removeFromCart(this)" data-product_id="{{ $product->id }}">
             <span class="glyphicon glyphicon-shopping-cart"></span> Remove From Cart
         </button>
-        <button class="btn-success" id="add-cart_{{ $product->id }}" @if($in_cart)style="display: none"@endif onclick="addToCart(this)" data-product_id="{{ $product->id }}">
+        <button class="btn-success btn-lg" id="add-cart_{{ $product->id }}" @if($in_cart)style="display: none"@endif onclick="addToCart(this)" data-product_id="{{ $product->id }}">
             <span class="glyphicon glyphicon-shopping-cart"></span> Add to cart
         </button>
         @if($in_cart)
-        <button class="btn-danger">
+        <button class="btn-danger btn-lg pull-right">
             <span class="glyphicon glyphicon-heart"  id="remove-fav_{{ $product->id }}"  onclick="removeFromFav(this)" data-product_id="{{ $product->id }}"  title="Remove from favorites"></span>
         </button>
         @else
-        <button class="btn-primary" id="add-fav_{{ $product->id }}"  onclick="addToFav(this)" data-product_id="{{ $product->id }}" title="Add to favorites">
+        <button class="btn-default btn-lg pull-right" id="add-fav_{{ $product->id }}"  onclick="addToFav(this)" data-product_id="{{ $product->id }}" title="Add to favorites">
             <span class="glyphicon glyphicon-heart-empty"></span>
         </button>
         @endif
@@ -51,10 +51,11 @@ function addToCart(obj){
         request.success(function(response){
             if(response.status == "success")
             {
-                $(obj).hide();
-                $('#remove-cart_'+product_id).show();
-                updateCartStats(response);
-                showSuccess(response.message);
+                window.location = "{{ route('cart') }}";
+//                $(obj).hide();
+//                $('#remove-cart_'+product_id).show();
+//                updateCartStats(response);
+//                showSuccess(response.message);
             }else if(response.status == "error")
             {
                 showError(response.message);

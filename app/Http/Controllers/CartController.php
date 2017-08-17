@@ -15,7 +15,8 @@ class CartController extends Controller
         $subTotal   = Cart::subtotal();
         $tax        = Cart::tax();
         $total      = Cart::total();
-        return view('cart', compact('items', 'subTotal', 'tax', 'total'));
+        $count      = Cart::count();
+        return view('cart', compact('items', 'subTotal', 'tax', 'total', 'count'));
     }
     
     public function add($id = null)
@@ -72,7 +73,7 @@ class CartController extends Controller
                           
                           
             if($found->isEmpty()){
-                $response['message'] = '"'.$product->name.'" is not in the cart';
+                $response['message'] = '"'.$product->name.'" is already removed from the cart';
                 
             }else{
                 $rowId = array_keys($found->toArray())[0];
@@ -128,5 +129,16 @@ class CartController extends Controller
         $response['cartSubTotal']   = Cart::subtotal();
         $response['cartTax']        = Cart::tax();
         $response['cartTotal']      = Cart::total();
+    }
+
+    public function emptyCart()
+    {   
+        if(Cart::count() > 0){
+            Cart::destroy();
+            session()->flash('success', 'All items are removed from Shopping Cart');
+        }else{
+            session()->flash('success', 'Shopping Cart is already empty');
+        }
+        return back();
     }
 }
