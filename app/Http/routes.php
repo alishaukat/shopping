@@ -29,9 +29,9 @@ Route::group(['prefix' => 'cart'], function () {
     Route::get('empty', 'CartController@emptyCart')->name('cart.empty');
 });
 
-Route::group(['prefix' => 'favorites'], function () {
-    Route::get('/', 'FavoritesController@index')->name('favorites');
-    Route::get('add/{id?}', 'FavoritesController@add')->name('favorites.add');
-    Route::get('remove/{id?}', 'FavoritesController@remove')->name('favorites.remove');
-    Route::get('empty', 'FavoritesController@emptyCart')->name('favorites.empty');
+Route::group(['prefix' => 'wishlist'], function () {
+    Route::get('/', 'WishlistController@index')->name('wishlist');
+    Route::get('add/{id?}', 'WishlistController@add')->name('wishlist.add');
+    Route::get('remove/{id?}', 'WishlistController@remove')->name('wishlist.remove');
+    Route::get('empty', 'WishlistController@emptyCart')->name('wishlist.empty');
 });

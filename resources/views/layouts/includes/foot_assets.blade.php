@@ -47,9 +47,9 @@ function updateCartStats(response)
     $('#cart_count').html(response.cartCount);
 }
 
-function updateFavStats(response)
+function updateWishlistStats(response)
 {
-    $('#fav_count').html(response.favCount);
+    $('#wishlist_count').html(response.wishlistCount);
 }
 
 /*

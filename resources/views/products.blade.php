@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Products | All
+    Products
 @stop
 
 @section('content')

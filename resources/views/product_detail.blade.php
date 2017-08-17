@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Products | {{ $product->title }}
+{{ $product->name }}
 @stop
 
 @section('content')
@@ -21,15 +21,12 @@
         <button class="btn-success btn-lg" id="add-cart_{{ $product->id }}" @if($in_cart)style="display: none"@endif onclick="addToCart(this)" data-product_id="{{ $product->id }}">
             <span class="glyphicon glyphicon-shopping-cart"></span> Add to cart
         </button>
-        @if($in_cart)
-        <button class="btn-danger btn-lg pull-right">
-            <span class="glyphicon glyphicon-heart"  id="remove-fav_{{ $product->id }}"  onclick="removeFromFav(this)" data-product_id="{{ $product->id }}"  title="Remove from favorites"></span>
+        <button class="btn-danger btn-lg pull-right" id="remove-wishlist_{{ $product->id }}" @if(!$in_wishlist)style="display: none"@endif onclick="removeFromWishlist(this)" data-product_id="{{ $product->id }}"  title="Remove from wishlist">
+            <span class="glyphicon glyphicon-heart"></span>
         </button>
-        @else
-        <button class="btn-default btn-lg pull-right" id="add-fav_{{ $product->id }}"  onclick="addToFav(this)" data-product_id="{{ $product->id }}" title="Add to favorites">
+        <button class="btn-default btn-lg pull-right" id="add-wishlist_{{ $product->id }}" @if($in_wishlist)style="display: none"@endif onclick="addToWishlist(this)" data-product_id="{{ $product->id }}" title="Add to wishlist">
             <span class="glyphicon glyphicon-heart-empty"></span>
         </button>
-        @endif
     </div>
 </div>
 <hr>
@@ -75,6 +72,45 @@ function removeFromCart(obj){
                 $(obj).hide();
                 $('#add-cart_'+product_id).show();
                 updateCartStats(response);
+                showSuccess(response.message);
+            }else if(response.status == "error")
+            {
+                showError(response.message);
+            }
+        });
+    }
+}
+function addToWishlist(obj){
+    var product_id = $(obj).data('product_id');
+    var url = '{{ route("wishlist.add") }}/'+product_id;
+    productRequest(url);
+    if(request != ""){
+        request.success(function(response){
+            if(response.status == "success")
+            {
+                $(obj).hide();
+                $('#remove-wishlist_'+product_id).show();
+                updateWishlistStats(response);
+                showSuccess(response.message);
+            }else if(response.status == "error")
+            {
+                showError(response.message);
+            }
+        });
+    }
+}
+
+function removeFromWishlist(obj){
+    var product_id = $(obj).data('product_id');
+    var url = '{{ route("wishlist.remove") }}/'+product_id;
+    productRequest(url);
+    if(request != ""){
+        request.success(function(response){
+            if(response.status == "success")
+            {
+                $(obj).hide();
+                $('#add-wishlist_'+product_id).show();
+                updateWishlistStats(response);
                 showSuccess(response.message);
             }else if(response.status == "error")
             {

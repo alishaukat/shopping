@@ -17,8 +17,12 @@
                 <li class=""><a href="{{ route('products') }}" @if(Request::route()->getName() == 'products') active @endif>Products</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ route('cart') }}">Favorites(<span id="favorite_count">{{ Cart::count() }}</span>)</a></li>
-                <li><a href="{{ route('cart') }}">Cart(<span id="cart_count">{{ Cart::count() }}</span>)</a></li>
+                <?php
+                    $wishlistCount  = Cart::instance('wishlist')->count();
+                    $cartCount      = Cart::instance('cart')->count();
+                ?>
+                <li><a href="{{ route('wishlist') }}">Wishlist (<span id="wishlist_count">{{ $wishlistCount }}</span>) </a></li>
+                <li><a href="{{ route('cart') }}"><span class="glyphicon glyphicon-shopping-cart"></span> Cart (<span id="cart_count">{{ $cartCount }}</span>) </a></li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
