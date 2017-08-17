@@ -1,0 +1,44 @@
+/* 
+    Created on : Jul 25, 2016, 6:19:53 PM
+    Author     : Ali Shaukat
+*/
+
+.data-container{
+    margin-top: 20px;
+}
+.loading{
+    background: url('../img/loading.gif') no-repeat;
+    width: 100%;
+    float: left;
+    margin-left: 48%;
+    display: none;
+}
+button:hover {
+  background: #3071A9;
+}
+tr.cart-row td{
+    vertical-align: middle !important;
+}
+
+tr.cart-row img{
+    width: 200px;
+}
+@media (min-width: 992px){
+    .portfolio-item {
+        height: 350px;
+        border: 1px solid lightgray;
+    }
+
+    .portfolio-item div{
+        height: 150px;
+    }
+
+    .portfolio-item a{
+        padding-top: 5px;
+        height: 150px;
+    }
+
+    .portfolio-item img{
+        height: 150px;
+    }   
+}
